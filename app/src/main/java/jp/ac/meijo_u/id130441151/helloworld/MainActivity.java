@@ -1,5 +1,6 @@
 package jp.ac.meijo_u.id130441151.helloworld;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,8 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.*;
 
 public class MainActivity extends AppCompatActivity {
+    private Button buttonClick;
+    private EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,25 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+        buttonClick = (Button)findViewById(R.id.buttonClick);
+        editText = (EditText)findViewById(R.id.editText);
+    }
+
+    public void handleButtonClickAction(View view) {
+        String message = editText.getText().toString();
+        buttonClick.setText(message);
+
+        try {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, message);
+            startActivity(intent);
+        } catch (Exception e) {
+            System.out.println("handleButtonClickAction");
+        }
     }
 
     @Override
